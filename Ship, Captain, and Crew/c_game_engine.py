@@ -11,11 +11,14 @@ class Game:
         self.__Player1 = Player()
         self.__Player2 = Player()
 
-
     def run(self):
         print(self.__Player1)
+        while self.__Player1.getGold() < 29 and self.__Player2.getGold() < 29:
+            print(f"{self.__Player1.getName()}'s Turn")
+
 
 
 if __name__ == "__main__":
     Game = Game()
+    print(Game)
     Game.run()

@@ -109,6 +109,9 @@ class Player:
         '''
         return self.__TOTAL_GOLD
 
+    def getName(self):
+        return self.__NAME
+
 if __name__ == "__main__":
     Player = Player()
     Player.rollDice()
