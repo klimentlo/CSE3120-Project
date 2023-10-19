@@ -4,6 +4,7 @@ title: die class
 author: kliment lo
 date-created: 2023/10/16
 '''
+
 class Die:
     '''
     Create a die to roll for random numbers
@@ -39,5 +40,6 @@ class Die:
         :return: (int)
         '''
         return self.__DIE_NUMBER
+
 if __name__ == "__main__":
     Die = Die()

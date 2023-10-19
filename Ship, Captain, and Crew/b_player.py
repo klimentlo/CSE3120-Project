@@ -90,14 +90,11 @@ class Player:
         for die in self.__DICE:
             print(die.getNumber())
 
-    def displayAllDice(self):
+    def displayHeldDice(self):
         '''
         print all dice in self.DICE and self.HELD_DICE
         :return:
         '''
-        print("Dice in Play: ")
-        for die in self.__DICE:
-            print(die.getNumber())
         print("Held Dice:")
         for die in self.__HELD_DICE:
             print(die.getNumber())
@@ -111,6 +108,21 @@ class Player:
 
     def getName(self):
         return self.__NAME
+
+    def checkRolledDice(self, WANTEDVALUE):
+        for i in range(len(self.__DICE)):
+            print(self.__DICE[i].getNumber())
+            if self.__DICE[i].getNumber() == WANTEDVALUE: # if the numbers of the dices rolled match the value that we're looking for
+                self.__HELD_DICE.append(self.__DICE.pop(i))# append the dice into the hand
+                return True
+        return False
+
+    def checkHeldDice(self, WANTEDVALUE):
+        for i in range(len(self.__HELD_DICE)): # for the amount of held dice
+            if WANTEDVALUE == self.__HELD_DICE[i]: # if the value that's being searched for is found in here
+                return True # itll stop searching
+        return False # if its not found, return false
+
 
 if __name__ == "__main__":
     Player = Player()
