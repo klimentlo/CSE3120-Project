@@ -13,22 +13,16 @@ class Game:
     def run(self):
         while self.__Player1.getGold() < 29 and self.__Player2.getGold() < 29:
             print(f"{self.__Player1.getName()}'s Turn")
-            for i in range(3): # for the 3 rolls they get per turn
-                self.__Player1.rollDice() # roll all the dice that's not in hand
-                if self.__Player1.checkHeldDice(6) == False: # if the desired dice isn't already in the hand
-                    if self.__Player1.checkRolledDice(6) == True: # then checks if the desired dice is on the table
-                        pause = input(f" Currently Held Dice Below: {self.__Player1.displayHeldDice()}")
-                        pass # if so, its automatically appended into held dice if its found here
-                    else:
-                        # if it is not found
-                        break
-                if self.__Player1.checkHeldDice(5) == False:
-                    if self.__Player1.checkRolledDice(5) == True:
-                        pass
-                if self.__Player1.checkHeldDice(4) == False:
-                    if self.__Player1.checkRolledDice(4) == True:
-                        pass
-
+            #for i in range(3): # for the 3 rolls they get per turn
+            self.__Player1.rollDice() # roll all the dice that's not in hand
+            print(self.__Player1.displayDice())
+            if self.__Player1.checkRolledDice(6): # checks if any of the rolled dice are 6
+                print("6 is found, now looking for 5")
+                if self.__Player1.checkRolledDice(5):
+                    print("5 is found, now looking for 4")
+                    self.__Player1.checkRolledDice(4)
+            print(self.__Player1.displayHeldDice())
+            pause = input("Stop Boy")
 
 
 if __name__ == "__main__":

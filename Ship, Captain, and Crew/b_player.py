@@ -110,19 +110,15 @@ class Player:
         return self.__NAME
 
     def checkRolledDice(self, WANTEDVALUE):
-        for i in range(len(self.__DICE)):
-            print(self.__DICE[i].getNumber())
-            if self.__DICE[i].getNumber() == WANTEDVALUE: # if the numbers of the dices rolled match the value that we're looking for
-                self.__HELD_DICE.append(self.__DICE.pop(i))# append the dice into the hand
+        # first checks if its already held or not
+        for i in range(len(self.__HELD_DICE)):  # then for the length of held dice
+            if self.__HELD_DICE[i].getNumber() == WANTEDVALUE:  # if the value we want is already in our hand, dont do anything and go back
+                return True  # already found
+
+        for i in range(len(self.__DICE)-1, -1, -1): # for the length of rolled dice
+            if self.__DICE[i].getNumber() == WANTEDVALUE: # check to see if any of the numbers are what we are looking for
+                self.__HELD_DICE.append(self.__DICE.pop(i))  #if it runs through the entire hand and doesn't find a match, it will append it into the thing.
                 return True
-        return False
-
-    def checkHeldDice(self, WANTEDVALUE):
-        for i in range(len(self.__HELD_DICE)): # for the amount of held dice
-            if WANTEDVALUE == self.__HELD_DICE[i]: # if the value that's being searched for is found in here
-                return True # itll stop searching
-        return False # if its not found, return false
-
 
 if __name__ == "__main__":
     Player = Player()
