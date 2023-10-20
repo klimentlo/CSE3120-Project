@@ -7,6 +7,12 @@ date-created: 2023/10/16
 
 from a_die import Die
 
+Unit = {
+    6 : "Ship",
+    5 : "Captain",
+    4 : "Crew",
+}
+
 class Player:
     '''
     The player for the game ship captain crew
@@ -117,6 +123,7 @@ class Player:
 
         for i in range(len(self.__DICE)-1, -1, -1): # for the length of rolled dice
             if self.__DICE[i].getNumber() == WANTEDVALUE: # check to see if any of the numbers are what we are looking for
+                print(f"{Unit[WANTEDVALUE]} has been found! ")
                 self.__HELD_DICE.append(self.__DICE.pop(i))  #if it runs through the entire hand and doesn't find a match, it will append it into the thing.
                 return True
 
