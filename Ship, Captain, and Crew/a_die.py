@@ -41,5 +41,6 @@ class Die:
         '''
         return self.__DIE_NUMBER
 
+
 if __name__ == "__main__":
     Die = Die()

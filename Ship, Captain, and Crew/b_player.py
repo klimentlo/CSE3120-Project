@@ -33,7 +33,7 @@ class Player:
         creates a player object
         '''
         self.__NAME = input("Name: ")
-        self.__DICE = [Die(), Die(), Die(), Die(), Die(), Die()]
+        self.__DICE = [Die(), Die(), Die(), Die(), Die()]
         self.__HELD_DICE = []
         self.__TOTAL_GOLD = 0
 
@@ -84,8 +84,46 @@ class Player:
         put all dice back in self.DICE
         :return:
         """
-        self.__DICE = [Die(), Die(), Die(), Die(), Die(), Die()]
+        self.__DICE = [Die(), Die(), Die(), Die(), Die()]
         self.__HELD_DICE = []
+
+    def checkRolledDice(self, WANTEDVALUE, TURN):
+        '''
+        :param:
+
+        '''
+        # first checks if its already held or not
+        for i in range(len(self.__HELD_DICE)):  # then for the length of held dice
+            if self.__HELD_DICE[i].getNumber() == WANTEDVALUE:  # if the value we want is already in our hand, dont do anything and go back
+                return True  # already found
+
+        for i in range(len(self.__DICE)-1, -1, -1): # for the length of rolled dice
+            if self.__DICE[i].getNumber() == WANTEDVALUE: # check to see if any of the numbers are what we are looking for
+                print(f"{Unit[WANTEDVALUE]} has been found! (Roll {TURN})")
+                self.__HELD_DICE.append(self.__DICE.pop(i))  #if it runs through the entire hand and doesn't find a match, it will append it into the thing.
+                return True
+
+    def takeTreasure(self, ROLLS):
+        '''
+        Calculates and tells user how much treasure they have from that roll
+        '''
+        treasure = 0
+        rerolls = 3 - ROLLS
+        for die in self.__DICE:
+            treasure += die.getNumber()
+
+        if ROLLS == 3: # if they have no rerolls left
+            print(f"You found {treasure} pieces of gold! ") # just tell them how much they found
+            self.__TOTAL_GOLD += treasure # add the treasure
+            return True
+
+        print(f"You currently found {treasure} pieces of gold! Keep Treasure? (Y/n) (Rerolls left: {rerolls})")
+        takeGold = input("> ")
+        if takeGold == "Y" or takeGold == "y":
+            self.__TOTAL_GOLD += treasure
+            return True
+        else: # if they type anything aside from Y or y, then dont add gold
+            return False
 
 # --- ACCESSORS --- # (outputs)
     def displayDice(self):
@@ -105,6 +143,12 @@ class Player:
         for die in self.__HELD_DICE:
             print(die.getNumber())
 
+    def displayGold(self):
+        '''
+        prints out the gold they just got and how much they have currently
+        '''
+        print(f"{self.__NAME} has a total of {self.__TOTAL_GOLD} Gold! ")
+
     def getGold(self):
         '''
         return the gold to the rest of the program
@@ -112,20 +156,10 @@ class Player:
         '''
         return self.__TOTAL_GOLD
 
+
     def getName(self):
         return self.__NAME
 
-    def checkRolledDice(self, WANTEDVALUE):
-        # first checks if its already held or not
-        for i in range(len(self.__HELD_DICE)):  # then for the length of held dice
-            if self.__HELD_DICE[i].getNumber() == WANTEDVALUE:  # if the value we want is already in our hand, dont do anything and go back
-                return True  # already found
-
-        for i in range(len(self.__DICE)-1, -1, -1): # for the length of rolled dice
-            if self.__DICE[i].getNumber() == WANTEDVALUE: # check to see if any of the numbers are what we are looking for
-                print(f"{Unit[WANTEDVALUE]} has been found! ")
-                self.__HELD_DICE.append(self.__DICE.pop(i))  #if it runs through the entire hand and doesn't find a match, it will append it into the thing.
-                return True
 
 if __name__ == "__main__":
     Player = Player()
