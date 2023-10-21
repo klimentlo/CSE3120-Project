@@ -32,12 +32,16 @@ class Player:
         '''
         creates a player object
         '''
-        self.__NAME = input("Name: ")
+        self.__NAME = ""
         self.__DICE = [Die(), Die(), Die(), Die(), Die()]
         self.__HELD_DICE = []
         self.__TOTAL_GOLD = 0
 
-
+    def changeName(self):
+        '''
+        assigns name to players
+        '''
+        self.__NAME = input("Name: ")
     def rollDice(self):
         '''
         rolls all the die in DICE
@@ -45,30 +49,6 @@ class Player:
         '''
         for die in self.__DICE:
             die.rollNum()
-
-    def holdDie(self):
-        '''
-        user selects die to save
-        :return: none
-        '''
-        print("Select a die to hold ")
-        for i in range(len(self.__DICE)):
-            print(f"{i+1}. {self.__DICE[i].getNumber()}")
-        DIE = int(input("> ")) - 1
-        self.__HELD_DICE.append(self.__DICE.pop(DIE))
-
-        print("Dice Remaining")
-        for die in self.__DICE:
-            print(die.getNumber())
-
-        print("Held Dice: ")
-        for die in self.__HELD_DICE:
-            print(die.getNumber())
-
-        #ask to gold more dice
-        AGAIN = input("Hold More? (y/N)")
-        if AGAIN.upper() == "Y":
-            return self.__holdDie()
 
 
     def addGold(self, GOLD_ADDING):
@@ -142,6 +122,12 @@ class Player:
         print("Held Dice:")
         for die in self.__HELD_DICE:
             print(die.getNumber())
+
+    def displayDieAmount(self):
+        '''
+        prints the amount of dice there is in the game as of right now
+        '''
+        return len(self.__DICE)
 
     def displayGold(self):
         '''

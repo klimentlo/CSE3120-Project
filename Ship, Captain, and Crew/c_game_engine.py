@@ -11,9 +11,56 @@ class Game:
     def __init__(self):
         self.__Player1 = Player()
         self.__Player2 = Player()
-        self.__Modifiers = [None, None]
+
+    def setup(self):
+        '''
+        explains the basis of the game and allows user to toggle on modifiers if they want to
+        '''
+        print("""
+Welcome to Ship, Captain, and Crew!
+The basis of the game is to find as much gold as possible. Whoever gets at least 30 gold first wins! In order to do so, you must first find the Ship, then Captain, then Crew. Good luck!""")
+
+        choice = input("""
+1. Start Game
+2. Toggle Modifiers
+3. Exit 
+> """)
+
+        if choice.isnumeric():
+            choice = int(choice)
+        else:
+            print("Invalid Input! ")
+            return self.setup()
+        if choice == 1:
+            pass
+
+        elif choice == 2:
+            print(f"""
+Possible Modifiers you woud like to toggle to the game
+1. Amount of Die (current: {self.__Player1.displayDieAmount()})
+2. Toggle "No prey No pay"  \/ \/ \/
+_____________________________________________________________________________________________ 
+|Every round, when you find all Ship Captain Crew, instead of saying Y/n to treausre, you get|
+|an oppurtunity to double the earnings. If "NPNP" is typed, it will use the remainder of your|
+|rolls of that round to try to roll for a second set of Ship Captain Crew. If it is found    | 
+|within your remaining rolls, your treasure for that round will double.                      |
+----------------------------------------------------------------------------------------------""")
+            modifierSelection = input("> ")
+            if modifierSelection == 1:
+                self.__Player1.changeDice(modifierSelection)
+            elif modifierSelection ==2:
+
+
+        elif choice == 3:
+            exit()
+        else:
+            print("Invalid Input!")
+            return self.setup()
+
 
     def run(self):
+        self.__Player1.changeName()
+        self.__Player2.changeName()
         while self.__Player1.getGold() < 29 and self.__Player2.getGold() < 29:
             print(f"{self.__Player1.getName()}'s Turn! ")
             rolls = 1 # starts off as round 1
@@ -34,22 +81,9 @@ class Game:
                 #print(self.__Player1.displayHeldDice())
             pause = input("Their turn as has ended")
 
-def menu():
-    '''
-    explains the basis of the game and allows user to toggle on modifiers if they want to
-    '''
-    print("""
-Welcome to Ship, Captain, and Crew!
-The basis of the game is to find as much gold as possible. Whoever gets at least 30 gold first wins! In order to do so, you must first find the Ship, then Captain, then Crew. Good luck!
-""")
-
-    choice = input("""
-1. Begin Game
-2. Toggle Modifiers
-3. Exit """)
 
 if __name__ == "__main__":
     while True:
-        modifiers = menu()
         Game = Game()
+        Game.setup()
         Game.run()
