@@ -11,7 +11,7 @@ class Game:
     def __init__(self):
         self.__Player1 = Player()
         self.__Player2 = Player()
-
+        self.__toggleModifier = False
     def setup(self):
         '''
         explains the basis of the game and allows user to toggle on modifiers if they want to
@@ -46,11 +46,20 @@ ________________________________________________________________________________
 |within your remaining rolls, your treasure for that round will double.                      |
 ----------------------------------------------------------------------------------------------""")
             modifierSelection = input("> ")
+            if modifierSelection.isnumeric():
+                modifierSelection = int(modifierSelection)
+            else:
+                print("Invalid Input! ")
+                return self.setup()
             if modifierSelection == 1:
-                self.__Player1.changeDice(modifierSelection)
-            elif modifierSelection ==2:
-
-
+                print("How many dice per roll? ")
+                diceAmount = input("> ")
+                if diceAmount.isnumeric():
+                    diceAmount = int(diceAmount)
+                self.__Player1.changeDiceAmount(diceAmount)
+                self.__Player2.changeDiceAmount(diceAmount)
+            elif modifierSelection == 2:
+                self.__toggleModifier = True
         elif choice == 3:
             exit()
         else:
@@ -71,9 +80,10 @@ ________________________________________________________________________________
                 if self.__Player1.checkRolledDice(6, rolls): # checks if any of the rolled dice are 6
                     if self.__Player1.checkRolledDice(5, rolls): # if 6 has already been found, look for 5
                         if self.__Player1.checkRolledDice(4, rolls): # if 5 has already been found, look for 4
-                            if self.__Player1.takeTreasure(rolls): # once found, ask if they want to take treasure. There is also measurements to calcualte if they have any rerolls left. IF not, it automatically adds it to their total
+                            if self.__Player1.takeTreasure(rolls, self.__toggleModifier): # once found, ask if they want to take treasure. There is also measurements to calcualte if they have any rerolls left. IF not, it automatically adds it to their total
                                 rolls = 4 # ends their turn
                                 self.__Player1.displayGold()
+
                 rolls += 1
             if initialGold == self.__Player1.getGold(): # if there is no difference in gold from before and after
                 print(f"{self.__Player1.getName()} found no gold! ")

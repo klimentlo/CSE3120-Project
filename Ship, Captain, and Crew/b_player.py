@@ -34,6 +34,7 @@ class Player:
         '''
         self.__NAME = ""
         self.__DICE = [Die(), Die(), Die(), Die(), Die()]
+        self.__DICE_AMOUNT = 5
         self.__HELD_DICE = []
         self.__TOTAL_GOLD = 0
 
@@ -42,6 +43,7 @@ class Player:
         assigns name to players
         '''
         self.__NAME = input("Name: ")
+
     def rollDice(self):
         '''
         rolls all the die in DICE
@@ -50,6 +52,16 @@ class Player:
         for die in self.__DICE:
             die.rollNum()
 
+
+
+    def changeDiceAmount(self, DICEAMOUNT):
+        '''
+        before game, can choose how many dice is used per roll
+        '''
+        self.__DICE_AMOUNT = DICEAMOUNT # saves into variable
+        self.__DICE = [] # resets dice amount
+        for i in range(self.__DICE_AMOUNT): # for amount of desired dice
+            self.__DICE.append(Die()) # make that many
 
     def addGold(self, GOLD_ADDING):
         '''
@@ -64,13 +76,15 @@ class Player:
         put all dice back in self.DICE
         :return:
         """
-        self.__DICE = [Die(), Die(), Die(), Die(), Die()]
-        self.__HELD_DICE = []
+        self.__DICE = [] # makes dice dead
+        for i in range(self.__DICE_AMOUNT): # for the amount of dice wante d
+            self.__DICE.append(Die()) # make that many
+
+        self.__HELD_DICE = [] # reset hand
 
     def checkRolledDice(self, WANTEDVALUE, TURN):
         '''
-        :param:
-
+        Chekcs if the dice matches our wanted value, appended our desired things in order into the hand
         '''
         # first checks if its already held or not
         for i in range(len(self.__HELD_DICE)):  # then for the length of held dice
@@ -83,10 +97,12 @@ class Player:
                 self.__HELD_DICE.append(self.__DICE.pop(i))  #if it runs through the entire hand and doesn't find a match, it will append it into the thing.
                 return True
 
-    def takeTreasure(self, ROLLS):
+    def takeTreasure(self, ROLLS, TOGGLEMODIFIER):
         '''
         Calculates and tells user how much treasure they have from that roll
         '''
+
+
         treasure = 0
         rerolls = 3 - ROLLS
         for die in self.__DICE:
@@ -99,11 +115,17 @@ class Player:
 
         print(f"You currently found {treasure} pieces of gold! Keep Treasure? (Y/n) (Rerolls left: {rerolls})")
         takeGold = input("> ")
+        # This section is if the double or nothing option is selected
+        if TOGGLEMODIFIER == True:
+            if takeGold == "NPNP":
+                pass
         if takeGold == "Y" or takeGold == "y":
             self.__TOTAL_GOLD += treasure
             return True
         else: # if they type anything aside from Y or y, then dont add gold
             return False
+
+        def toggle():
 
 # --- ACCESSORS --- # (outputs)
     def displayDice(self):
@@ -142,9 +164,9 @@ class Player:
         '''
         return self.__TOTAL_GOLD
 
-
     def getName(self):
         return self.__NAME
+
 
 
 if __name__ == "__main__":
