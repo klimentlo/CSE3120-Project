@@ -97,7 +97,7 @@ class Player:
                 self.__HELD_DICE.append(self.__DICE.pop(i))  #if it runs through the entire hand and doesn't find a match, it will append it into the thing.
                 return True
 
-    def takeTreasure(self, ROLLS, TOGGLEMODIFIER):
+    def takeTreasure(self, ROLLS, TOGGLEMODIFIER, MULTIPLIER):
         '''
         Calculates and tells user how much treasure they have from that roll
         '''
@@ -109,23 +109,22 @@ class Player:
             treasure += die.getNumber()
 
         if ROLLS == 3: # if they have no rerolls left
-            print(f"You found {treasure} pieces of gold! ") # just tell them how much they found
-            self.__TOTAL_GOLD += treasure # add the treasure
+            print(f"You found {treasure * MULTIPLIER} pieces of gold! ") # just tell them how much they found
+            self.__TOTAL_GOLD += (treasure * MULTIPLIER) # add the treasure
             return True
 
-        print(f"You currently found {treasure} pieces of gold! Keep Treasure? (Y/n) (Rerolls left: {rerolls})")
+        print(f"You currently found {treasure * MULTIPLIER} pieces of gold! Keep Treasure? (Y/n) (Rerolls left: {rerolls})")
         takeGold = input("> ")
         # This section is if the double or nothing option is selected
         if TOGGLEMODIFIER == True:
             if takeGold == "NPNP":
-                pass
+                print("Player has participated in No Prey No Pay! ")
+                return "toggleOn"
         if takeGold == "Y" or takeGold == "y":
-            self.__TOTAL_GOLD += treasure
+            self.__TOTAL_GOLD += (treasure * MULTIPLIER)
             return True
         else: # if they type anything aside from Y or y, then dont add gold
             return False
-
-        def toggle():
 
 # --- ACCESSORS --- # (outputs)
     def displayDice(self):
