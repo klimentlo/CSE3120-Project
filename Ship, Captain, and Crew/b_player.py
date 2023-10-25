@@ -106,7 +106,7 @@ class Player:
         treasure = 0
         rerolls = 3 - ROLLS
         for die in self.__DICE:
-            treasure += die.getNumber()
+            treasure += die.getNumber() # for every die left in hand, add it as a sum to treasure
 
         if ROLLS == 3: # if they have no rerolls left
             print(f"You found {treasure * MULTIPLIER} pieces of gold! ") # just tell them how much they found
@@ -121,7 +121,7 @@ class Player:
                 print("Player has participated in No Prey No Pay! ")
                 return "toggleOn"
         if takeGold == "Y" or takeGold == "y":
-            self.__TOTAL_GOLD += (treasure * MULTIPLIER)
+            self.__TOTAL_GOLD += (treasure * MULTIPLIER) # multilpys it with multiplier, so if npnp conditions are met, it is doubled
             return True
         else: # if they type anything aside from Y or y, then dont add gold
             return False
@@ -133,7 +133,7 @@ class Player:
         :return: none
         '''
         for die in self.__DICE:
-            print(die.getNumber())
+            print(die.getNumber()) # for amount of dice in list, print its number
 
     def displayHeldDice(self):
         '''
@@ -142,13 +142,13 @@ class Player:
         '''
         print("Held Dice:")
         for die in self.__HELD_DICE:
-            print(die.getNumber())
+            print(die.getNumber()) # for every held dice in hand list , print them hout
 
     def displayDieAmount(self):
         '''
         prints the amount of dice there is in the game as of right now
         '''
-        return len(self.__DICE)
+        return len(self.__DICE) # gets amount of current dice in play
 
     def displayGold(self):
         '''

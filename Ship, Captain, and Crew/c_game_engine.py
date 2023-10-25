@@ -8,25 +8,32 @@ from a_die import Die
 from b_player import Player
 
 class Game:
+# --- Attributes
     def __init__(self):
+        '''
+        creates the two player objects and will decide whether or not the game will have modifiers active
+        '''
         self.__Player1 = Player()
         self.__Player2 = Player()
         self.__toggleModifier = False
-        self.__conditionsMet = False
-
+        self.__conditionsMet = False # will be used to see if the NoPreyNoPay conditions were met
+        # prints the intro text
+        print("""
+Welcome to Ship, Captain, and Crew!
+The basis of the game is to find as much gold as possible. Whoever reaches 40 gold first wins! In order to do so, you must first find the Ship, then Captain, then Crew. 
+Only then, will you be able to locate treasure. Good luck!""")
+# --- Setter Methods
     def menu(self):
         '''
         explains the basis of the game and allows user to toggle on modifiers if they want to
         '''
-        print("""
-Welcome to Ship, Captain, and Crew!
-The basis of the game is to find as much gold as possible. Whoever gets at least 30 gold first wins! In order to do so, you must first find the Ship, then Captain, then Crew. Good luck!""")
 
         choice = input("""
 1. Start Game
 2. Toggle Modifiers
 3. Exit
 > """)
+
         if choice.isnumeric():
             choice = int(choice)
         else:
@@ -35,7 +42,7 @@ The basis of the game is to find as much gold as possible. Whoever gets at least
         if choice == 1:
             pass
         elif choice == 2:
-            self.toggleModifier()
+            self.toggleModifier() # runs the toggleModifier function
         elif choice == 3:
             exit()
         else:
@@ -43,6 +50,10 @@ The basis of the game is to find as much gold as possible. Whoever gets at least
             return self.menu()
 
     def toggleModifier(self):
+        '''
+        allows the players to select if they want to add more dice or turn on additional feature
+        return: none
+        '''
         print(f"""
 Possible Modifiers you woud like to toggle to the game
 1. Amount of Die (current: {self.__Player1.displayDieAmount()})
@@ -70,6 +81,7 @@ ________________________________________________________________________________
             if diceAmount.isnumeric():
                 diceAmount = int(diceAmount)
                 if diceAmount > 3:
+                    print(f"Amount of Die has successfully been changed to {diceAmount}. ")
                     pass
                 else:
                     print("Invalid Amount! Must have at least 4 die!")
@@ -78,14 +90,19 @@ ________________________________________________________________________________
             self.__Player2.changeDiceAmount(diceAmount)
             return self.menu()
         elif modifierSelection == 2:
-            self.__toggleModifier = True
+            if self.__toggleModifier == True:
+                self.__toggleModifier = False
+                print("Modifier has been toggled off! ")
+            else:
+                self.__toggleModifier = True
+                print("Modifier has been toggled on! ")
             return self.menu()
 
     def run(self):
         self.__Player1.changeName()
         self.__Player2.changeName()
 
-        while self.__Player1.getGold() < 29 and self.__Player2.getGold() < 29:
+        while self.__Player1.getGold() < 39 and self.__Player2.getGold() < 39:
             print ("")
             print(f"{self.__Player1.getName()}'s Turn! ")
             pause = input("Press enter to roll! ")
@@ -95,7 +112,6 @@ ________________________________________________________________________________
             while rolls < 4:
                 initialGold = self.__Player1.getGold()
                 self.__Player1.rollDice() # roll all the dice that's not in hand
-                print(self.__Player1.displayDice())
                 if self.__Player1.checkRolledDice(6, rolls): # checks if any of the rolled dice are 6
                     if self.__Player1.checkRolledDice(5, rolls): # if 6 has already been found, look for 5
                         if self.__Player1.checkRolledDice(4, rolls): # if 5 has already been found, look for 4
@@ -117,6 +133,8 @@ ________________________________________________________________________________
             #Resets the things
             self.__Player1.resetDice() # after their rolls are all used up, reset their dice and hand
             self.__isToggled = False
+            if self.__Player1.getGold() >= 40:
+                break
             # PLAYER TWO'S TURN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
             print("")
             print(f"{self.__Player2.getName()}'s Turn! ")
@@ -147,6 +165,17 @@ ________________________________________________________________________________
                 print(f"{self.__Player2.getName()} found no gold! ")
             self.__Player2.resetDice()  # after their rolls are all used up, reset their dice and hand
             self.__isToggled = False
+
+        if self.__Player1.getGold() >= 40:
+            print(f"{self.__Player1.getName()} has won! ")
+        else:
+            print(f"{self.__Player2.getName()} has won!")
+        print("")
+        print("Here are the final scores: ")
+        print(f"{self.__Player1.getName()}'s total gold: {self.__Player1.getGold()}")
+        print(f"{self.__Player2.getName()}'s total gold: {self.__Player2.getGold()}")
+        print("Thanks for playing! ")
+        print("Now returning to main menu... ")
 
 
 if __name__ == "__main__":
