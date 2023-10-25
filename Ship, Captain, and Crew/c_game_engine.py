@@ -175,7 +175,7 @@ ________________________________________________________________________________
         print(f"{self.__Player1.getName()}'s total gold: {self.__Player1.getGold()}")
         print(f"{self.__Player2.getName()}'s total gold: {self.__Player2.getGold()}")
         print("Thanks for playing! ")
-        print("Now returning to main menu... ")
+        print("Returning to main menu... ")
 
 
 if __name__ == "__main__":
