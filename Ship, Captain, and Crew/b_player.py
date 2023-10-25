@@ -27,7 +27,7 @@ class Player:
     - addToGold()
     - getGold()
     '''
-
+# --- Attributes --- #
     def __init__(self):
         '''
         creates a player object
@@ -37,6 +37,8 @@ class Player:
         self.__DICE_AMOUNT = 5
         self.__HELD_DICE = []
         self.__TOTAL_GOLD = 0
+
+# --- SETTER METHODS --- # (processing/inputs?"
 
     def changeName(self):
         '''
@@ -51,8 +53,6 @@ class Player:
         '''
         for die in self.__DICE:
             die.rollNum()
-
-
 
     def changeDiceAmount(self, DICEAMOUNT):
         '''
@@ -126,7 +126,7 @@ class Player:
         else: # if they type anything aside from Y or y, then dont add gold
             return False
 
-# --- ACCESSORS --- # (outputs)
+# --- GETTER METHODS --- # (outputs)
     def displayDice(self):
         '''
         print all dice in self.DICE
