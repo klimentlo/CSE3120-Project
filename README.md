@@ -17,7 +17,7 @@ This program allows you to play the dice game "Ship Captain Crew", but digitally
 - You can choose the amount of dice you get per round. The normal amount is 5, but you can change it to as big of a nubmer as you want, as long it has at least 3 total die.
 
 - A toggleable modifier allows a player to gamble for double or nothing, requiring them to find another set of Ship, Captain, and Crew. If they are able to find this set within their set amount of rolls of that round, their treaure is doubled during that round!
-- 
+
 
 -----
 
