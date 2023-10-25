@@ -80,12 +80,15 @@ ________________________________________________________________________________
             diceAmount = input("> ")
             if diceAmount.isnumeric():
                 diceAmount = int(diceAmount)
-                if diceAmount > 3:
-                    print(f"Amount of Die has successfully been changed to {diceAmount}. ")
-                    pass
-                else:
-                    print("Invalid Amount! Must have at least 4 die!")
-                    return self.toggleModifier()
+            else:
+                print("Invalid Input! ")
+                return self.toggleModifier()
+            if diceAmount > 3:
+                print(f"Amount of Die has successfully been changed to {diceAmount}. ")
+                pass
+            else:
+                print("Invalid Amount! Must have at least 4 die!")
+                return self.toggleModifier()
             self.__Player1.changeDiceAmount(diceAmount)
             self.__Player2.changeDiceAmount(diceAmount)
             return self.menu()
