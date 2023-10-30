@@ -7,12 +7,11 @@
 ### What is the purpose of this program? 
 -----
 
-This program allows you to play the dice game "Ship Captain Crew", but digitally on the computer! The purpose of the game is to obtain as much gold as possible, having to find a certain amount of gold in order to win. More information about that is accessable at https://bicyclecards.com/how-to-play/ship-captain-and-crew/
+This program allows you to play the dice game "Ship Captain Crew", but digitally on the computer! The purpose of the game is to obtain as much gold as possible, having to find a certain amount of gold in order to win. In this program, you must acquire a total of 40 gold or more before your opponent to win. More information about how the game works is accessable at https://bicyclecards.com/how-to-play/ship-captain-and-crew/.
 
 -----
 ### Extra Features:
 -----
-- The gold required to win: 40
 
 - You can choose the amount of dice you get per round. The normal amount is 5, but you can change it to as big of a nubmer as you want, as long it has at least 3 total die.
 
