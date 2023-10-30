@@ -101,8 +101,6 @@ class Player:
         '''
         Calculates and tells user how much treasure they have from that roll
         '''
-
-
         treasure = 0
         rerolls = 3 - ROLLS
         for die in self.__DICE:

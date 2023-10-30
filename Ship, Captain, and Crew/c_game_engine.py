@@ -4,9 +4,8 @@ title: game engine
 author: kliment lo
 date-created: 2023/10/16
 '''
-from a_die import Die
 from b_player import Player
-
+import time
 class Game:
 # --- Attributes
     def __init__(self):
@@ -147,7 +146,6 @@ ________________________________________________________________________________
             while rolls < 4:
                 initialGold = self.__Player2.getGold()
                 self.__Player2.rollDice()  # roll all the dice that's not in hand
-                print(self.__Player2.displayDice())
                 if self.__Player2.checkRolledDice(6, rolls):  # checks if any of the rolled dice are 6
                     if self.__Player2.checkRolledDice(5, rolls):  # if 6 has already been found, look for 5
                         if self.__Player2.checkRolledDice(4, rolls):  # if 5 has already been found, look for 4
@@ -179,7 +177,7 @@ ________________________________________________________________________________
         print(f"{self.__Player2.getName()}'s total gold: {self.__Player2.getGold()}")
         print("Thanks for playing! ")
         print("Returning to main menu... ")
-
+        time.sleep(3)
 
 if __name__ == "__main__":
     Game = Game()
